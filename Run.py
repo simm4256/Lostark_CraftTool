@@ -59,9 +59,14 @@ browser.get('https://lostark.game.onstove.com/Market')
 wb = openpyxl.load_workbook('base.xlsm', read_only=False, keep_vba=True)
 ws = wb['거래소 최저가']
 
-login_type = wb['검색']['I5'].internal_value
-uid = wb['검색']['I6'].internal_value
-upw = wb['검색']['I7'].internal_value
+try:
+    login_type = wb['검색']['I5'].internal_value
+    uid = wb['검색']['I6'].internal_value
+    upw = wb['검색']['I7'].internal_value
+except:
+    print("로그인 정보 불러오기에 실패했습니다.")
+    print("base.xlsm 파일에 로그인 정보를 잘 입력했는지 확인해주세요.")
+    print("만약 Readme.txt를 읽지 않으셨다면 반드시 읽어주세요.")
 
 
 Login()
