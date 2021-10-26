@@ -85,7 +85,6 @@ for k in range(1,5) :
     time.sleep(1)
     prices = browser.find_elements_by_class_name("price")
     names = browser.find_elements_by_class_name('name')
-    counts = browser.find_elements_by_class_name('count')
     cnt_name = 1
     for i in prices:
         cnt+=1
@@ -138,26 +137,27 @@ Search('가루')
 prices = browser.find_elements_by_class_name("price")
 ws['G67'] = int(prices[2].text.replace(',',""))
 
-Search('장인의 마늘 스테이크 정식')
-time.sleep(0.5)
-browser.find_element_by_css_selector('#itemList > thead > tr > th:nth-child(4) > a').click()
-time.sleep(0.5)
+Search('정식')
+browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__title").click()
+browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__option > label:nth-child(4)").click()
+browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.bt > button.button.button--deal-submit")
 prices = browser.find_elements_by_class_name("price")
-ws['G69'] = int(prices[2].text.replace(',',""))
-
-Search('달인의 버터 스테이크 정식')
-time.sleep(0.5)
-browser.find_element_by_css_selector('#itemList > thead > tr > th:nth-child(4) > a').click()
-time.sleep(0.5)
-prices = browser.find_elements_by_class_name("price")
-ws['G70'] = int(prices[2].text.replace(',',""))
-
-Search('명인의 허브 스테이크 정식')
-time.sleep(0.5)
-browser.find_element_by_css_selector('#itemList > thead > tr > th:nth-child(4) > a').click()
-time.sleep(0.5)
-prices = browser.find_elements_by_class_name("price")
-ws['G71'] = int(prices[2].text.replace(',',""))
+names = browser.find_elements_by_class_name('name')
+cnt_name = 0
+cnt=0
+j=69
+for i in prices:
+    cnt+=1
+    if cnt==3 :
+        cnt=0
+        cnt_name+=1
+        try : 
+            tmp = browser.find_element_by_css_selector('#tbodyItemList > tr:nth-child({}) > td:nth-child(1) > div:nth-child(1) > span:nth-child(3)'.format(cnt_name)).text
+            ws['F{}'.format(j)]=names[cnt_name].text
+            p=int(i.text.replace(',',""))
+            ws['G{}'.format(j)] = p
+            j+=1        
+        except : None
 
 
 t = time.strftime('%m%d_%H%M%S',time.localtime(time.time()))
