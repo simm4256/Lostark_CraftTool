@@ -15,7 +15,7 @@ exe파일을 믿지 못하시는 분들은 파이썬을 설치해 Run.py 코드�
 
 <준비물>
 
-엑셀
+마이크로소프트 엑셀
 마이크로소프트 엣지 최신버전
 마이크로소프트 엣지 드라이버 최신버전 (https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/)
 
