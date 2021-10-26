@@ -25,7 +25,7 @@ exe파일을 믿지 못하시는 분들은 파이썬을 설치해 Run.py 코드�
 <사용법>
 
 Run.exe
-msedgedriver.exe
+chromedriver.exe
 base.xlsm
 3개의 파일은 반드시 같은 공간에 있어야 합니다.
 
