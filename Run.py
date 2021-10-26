@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import openpyxl
-import sys
 import re
 import pyperclip
 
@@ -15,8 +14,7 @@ def Search(s):
     time.sleep(1.5)
 
 def ChangeWindow(n):
-    browser.switch_to_window(browser.window_handles[n])
-    browser.get_window_position(browser.window_handles[n])
+    browser.switch_to.window(browser.window_handles[n])
 
 def Login():
     if login_type != "stove":
@@ -53,7 +51,9 @@ def Login():
     time.sleep(2)
     ChangeWindow(0)
 
-browser = webdriver.Edge(executable_path='msedgedriver.exe')
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+browser = webdriver.Chrome('chromedriver.exe', options=options)
 browser.get('https://lostark.game.onstove.com/Market')
 
 wb = openpyxl.load_workbook('base.xlsm', read_only=False, keep_vba=True)
@@ -62,6 +62,7 @@ ws = wb['거래소 최저가']
 login_type = wb['검색']['I5'].internal_value
 uid = wb['검색']['I6'].internal_value
 upw = wb['검색']['I7'].internal_value
+
 
 Login()
 
@@ -82,7 +83,7 @@ j=1
 for k in range(1,5) :
     if k>1 :
         browser.execute_script('paging.page({});'.format(k))
-    time.sleep(1)
+    time.sleep(0.7)
     prices = browser.find_elements_by_class_name("price")
     names = browser.find_elements_by_class_name('name')
     cnt_name = 1
@@ -102,7 +103,7 @@ for k in range(1,5) :
 
 browser.find_element_by_css_selector('.main-category > li:nth-child(6) > a:nth-child(1)').click()
 browser.find_element_by_css_selector('.is-active > ul:nth-child(2) > li:nth-child(1) > a:nth-child(1)').click()
-time.sleep(1.5)
+time.sleep(1)
 browser.find_element_by_css_selector('#itemList > thead:nth-child(3) > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)').click()
 
 cnt=0
@@ -110,7 +111,7 @@ j=1
 for k in range(1,7) :
     if k>1 :
         browser.execute_script('paging.page({});'.format(k))
-    time.sleep(1.5)
+    time.sleep(0.7)
     prices = browser.find_elements_by_class_name("price")
     names = browser.find_elements_by_class_name('name')
     cnt_name = 1
@@ -139,8 +140,11 @@ ws['G67'] = int(prices[2].text.replace(',',""))
 
 Search('정식')
 browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__title").click()
+time.sleep(0.5)
 browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__option > label:nth-child(4)").click()
-browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.bt > button.button.button--deal-submit")
+time.sleep(0.5)
+browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.bt > button.button.button--deal-submit").click()
+time.sleep(0.5)
 prices = browser.find_elements_by_class_name("price")
 names = browser.find_elements_by_class_name('name')
 cnt_name = 0
@@ -165,6 +169,4 @@ wb.save('{}.xlsm'.format(t))
 
 print('최저가 데이터 동기화 완료. {}.xlsm 파일에서 확인하세요.\n이 창은 5초 후 자동으로 꺼집니다.'.format(t))
 time.sleep(5)
-browser.close()
-
-sys.exit()
+browser.quit()
