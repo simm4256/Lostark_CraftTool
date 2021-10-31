@@ -117,7 +117,7 @@ for k in range(1,5) :
 
 browser.find_element_by_css_selector('.main-category > li:nth-child(6) > a:nth-child(1)').click()
 browser.find_element_by_css_selector('.is-active > ul:nth-child(2) > li:nth-child(1) > a:nth-child(1)').click()
-time.sleep(1); Message()
+time.sleep(1)
 browser.find_element_by_css_selector('#itemList > thead:nth-child(3) > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)').click()
 
 cnt=0
@@ -140,7 +140,7 @@ for k in range(1,7) :
             ws['G{}'.format(j)] = p
     j+=1
 
-Search('하 융')
+Search('하 융'); Message(); Message(); Message()
 browser.find_element_by_css_selector('#itemList > thead:nth-child(3) > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)').click()
 time.sleep(0.5)
 prices = browser.find_elements_by_class_name("price")
@@ -148,17 +148,17 @@ ws['G61'] = int(prices[2].text.replace(',',"")); Message()
 ws['G62'] = int(prices[5].text.replace(',',"")); Message()
 ws['G63'] = int(prices[8].text.replace(',',"")); Message()
 
-Search('가루')
+Search('가루'); Message(); Message(); Message(); Message()
 prices = browser.find_elements_by_class_name("price")
-ws['G67'] = int(prices[2].text.replace(',',"")); Message()
+ws['G67'] = int(prices[2].text.replace(',',""))
 
 Search('정식')
 browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__title").click()
-time.sleep(0.5); Message()
+time.sleep(0.5); Message(); Message()
 browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__option > label:nth-child(4)").click()
-time.sleep(0.5); Message()
+time.sleep(0.5); Message(); Message()
 browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.bt > button.button.button--deal-submit").click()
-time.sleep(0.5); Message()
+time.sleep(0.5); Message(); Message()
 prices = browser.find_elements_by_class_name("price")
 names = browser.find_elements_by_class_name('name')
 cnt_name = 0
