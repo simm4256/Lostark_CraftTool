@@ -68,7 +68,7 @@ wb = openpyxl.load_workbook('base.xlsm', read_only=False, keep_vba=True)
 ws = wb['거래소 최저가']
 
 os.system('cls')
-print('\n','-'*43,'\n Lostark Craft Tool ver3.1.0.0 by simm4256\n','-'*43,'\n')
+print('\n','-'*43,'\n Lostark Craft Tool ver3.2.0.0 by simm4256\n','-'*43,'\n')
 
 login_type = wb['검색']['I5'].internal_value
 uid = wb['검색']['I6'].internal_value
@@ -93,7 +93,8 @@ except:
     time.sleep(10)
     sys.exit()
 
-while True:
+isError = True
+for i in range(5):
     try:
         progress=-1
         err = 1
@@ -198,9 +199,16 @@ while True:
         print('\n\n최저가 데이터 동기화 완료. \n{}.xlsm 파일에서 확인하세요.\n이 창은 5초 후 자동으로 꺼집니다.'.format(t))
         time.sleep(5)
         browser.quit()
+        isError = False
         break
     except:
-        print("최저가 탐색 중 오류 발생! ERROR{}".format(err))
+        print("\n최저가 탐색 중 오류 발생! ERROR : {}".format(err))
         print("동일한 에러가 반복될 경우 제작자에게 문의해주세요.")
         print("5초 후 처음부터 다시 탐색합니다.")
         time.sleep(5)
+
+if isError:
+    print("\n최저가 탐색 중 오류 발생! ERROR : {}".format(err))
+    print("동일한 에러가 반복될 경우 제작자에게 문의해주세요.")
+    print("에러가 5회 발생하여 5초 후 프로그램이 종료됩니다.")
+    time.sleep(5)
