@@ -83,105 +83,124 @@ if login_type==None or uid==None or upw==None:
     time.sleep(10)
     sys.exit()
 
-Login()
-progress=-1
-Message()
+try:
+    Login()
+except:
+    print("로그인 과정에서 오류가 생겼습니다.")
+    print("STOVE 계정이 아니라면 STOVE 계정으로 시도해보시기 바랍니다.")
+    print("이 오류가 반복될 경우 제작자에게 문의해주세요.")
+    print("이 창은 10초 후 닫힙니다.")
+    time.sleep(10)
+    sys.exit()
 
-browser.find_element_by_css_selector('.main-category > li:nth-child(8) > a:nth-child(1)').click(); Message()
-browser.find_element_by_css_selector('.is-active > ul:nth-child(2) > li:nth-child(1) > a:nth-child(1)').click(); Message()
-time.sleep(1.5); Message()
-browser.find_element_by_css_selector('#itemList > thead:nth-child(3) > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)').click(); Message()
+while True:
+    try:
+        progress=-1
+        err = 1
 
-cnt=0
-j=1
-for k in range(1,5) :
-    if k>1 :
-        browser.execute_script('paging.page({});'.format(k))
-    time.sleep(0.7); Message(); Message(); Message(); Message(); Message(); Message()
-    prices = browser.find_elements_by_class_name("price"); Message()
-    names = browser.find_elements_by_class_name('name'); Message()
-    cnt_name = 1; Message()
-    for i in prices:
-        cnt+=1
-        if cnt==3 :
-            cnt=0
-            j+=1
-            ws['A{}'.format(j)]=names[cnt_name].text
-            try : 
-                ws['D{}'.format(j)] = re.sub(r'[^0-9]', '', (browser.find_element_by_css_selector('#tbodyItemList > tr:nth-child({}) > td:nth-child(1) > div:nth-child(1) > span:nth-child(3)'.format(cnt_name)).text))
-            except : None
-            cnt_name+=1
-            p=int(i.text.replace(',',""))
-            ws['B{}'.format(j)] = p
-    j+=1
+        Message()
+        browser.find_element_by_css_selector('.main-category > li:nth-child(8) > a:nth-child(1)').click(); Message()
+        browser.find_element_by_css_selector('.is-active > ul:nth-child(2) > li:nth-child(1) > a:nth-child(1)').click(); Message(); err+=1
+        time.sleep(1.5); Message()
+        browser.find_element_by_css_selector('#itemList > thead:nth-child(3) > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)').click(); Message(); err+=1
 
-browser.find_element_by_css_selector('.main-category > li:nth-child(6) > a:nth-child(1)').click()
-browser.find_element_by_css_selector('.is-active > ul:nth-child(2) > li:nth-child(1) > a:nth-child(1)').click()
-time.sleep(1)
-browser.find_element_by_css_selector('#itemList > thead:nth-child(3) > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)').click()
-
-cnt=0
-j=1
-for k in range(1,7) :
-    if k>1 :
-        browser.execute_script('paging.page({});'.format(k))
-    time.sleep(0.7); Message(); Message(); Message(); Message(); Message(); Message()
-    prices = browser.find_elements_by_class_name("price")
-    names = browser.find_elements_by_class_name('name')
-    cnt_name = 1
-    for i in prices:
-        cnt+=1
-        if cnt==3 :
-            cnt=0
-            j+=1
-            ws['F{}'.format(j)]=names[cnt_name].text
-            cnt_name+=1
-            p=int(i.text.replace(',',""))
-            ws['G{}'.format(j)] = p
-    j+=1
-
-Search('하 융'); Message(); Message(); Message()
-browser.find_element_by_css_selector('#itemList > thead:nth-child(3) > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)').click()
-time.sleep(0.5)
-prices = browser.find_elements_by_class_name("price")
-ws['G61'] = int(prices[2].text.replace(',',"")); Message()
-ws['G62'] = int(prices[5].text.replace(',',"")); Message()
-ws['G63'] = int(prices[8].text.replace(',',"")); Message()
-
-Search('가루'); Message(); Message(); Message(); Message()
-prices = browser.find_elements_by_class_name("price")
-ws['G67'] = int(prices[2].text.replace(',',""))
-
-Search('정식')
-browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__title").click()
-time.sleep(0.5); Message(); Message()
-browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__option > label:nth-child(4)").click()
-time.sleep(0.5); Message(); Message()
-browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.bt > button.button.button--deal-submit").click()
-time.sleep(0.5); Message(); Message()
-prices = browser.find_elements_by_class_name("price")
-names = browser.find_elements_by_class_name('name')
-cnt_name = 0
-cnt=0
-j=69
-for i in prices:
-    cnt+=1
-    if cnt==3 :
         cnt=0
-        cnt_name+=1
-        try : 
-            tmp = browser.find_element_by_css_selector('#tbodyItemList > tr:nth-child({}) > td:nth-child(1) > div:nth-child(1) > span:nth-child(3)'.format(cnt_name)).text
-            ws['F{}'.format(j)]=names[cnt_name].text; Message(); Message()
-            p=int(i.text.replace(',',""))
-            ws['G{}'.format(j)] = p
-            j+=1        
-        except : None
+        j=1
+        for k in range(1,5) :
+            if k>1 :
+                browser.execute_script('paging.page({});'.format(k))
+            err+=1
+            time.sleep(0.7); Message(); Message(); Message(); Message(); Message(); Message()
+            prices = browser.find_elements_by_class_name("price"); Message()
+            names = browser.find_elements_by_class_name('name'); Message()
+            cnt_name = 1; Message()
+            for i in prices:
+                cnt+=1
+                if cnt==3 :
+                    cnt=0
+                    j+=1
+                    ws['A{}'.format(j)]=names[cnt_name].text
+                    try : 
+                        ws['D{}'.format(j)] = re.sub(r'[^0-9]', '', (browser.find_element_by_css_selector('#tbodyItemList > tr:nth-child({}) > td:nth-child(1) > div:nth-child(1) > span:nth-child(3)'.format(cnt_name)).text))
+                    except : None
+                    cnt_name+=1
+                    p=int(i.text.replace(',',""))
+                    ws['B{}'.format(j)] = p
+            j+=1; err+=1
+        browser.find_element_by_css_selector('.main-category > li:nth-child(6) > a:nth-child(1)').click()
+        browser.find_element_by_css_selector('.is-active > ul:nth-child(2) > li:nth-child(1) > a:nth-child(1)').click(); err+=1
+        time.sleep(1)
+        browser.find_element_by_css_selector('#itemList > thead:nth-child(3) > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)').click(); err+=1
 
+        cnt=0
+        j=1
+        for k in range(1,7) :
+            if k>1 :
+                browser.execute_script('paging.page({});'.format(k))
+            err+=1
+            time.sleep(0.7); Message(); Message(); Message(); Message(); Message(); Message()
+            prices = browser.find_elements_by_class_name("price")
+            names = browser.find_elements_by_class_name('name')
+            cnt_name = 1
+            for i in prices:
+                cnt+=1
+                if cnt==3 :
+                    cnt=0
+                    j+=1
+                    ws['F{}'.format(j)]=names[cnt_name].text
+                    cnt_name+=1
+                    p=int(i.text.replace(',',""))
+                    ws['G{}'.format(j)] = p
+            j+=1; err+=1
 
-t = time.strftime('%m%d_%H%M%S',time.localtime(time.time()))
-wb.save('{}.xlsm'.format(t)); Message()
-progress=99; Message()
+        Search('하 융'); Message(); Message(); Message(); err+=1
+        browser.find_element_by_css_selector('#itemList > thead:nth-child(3) > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)').click(); err+=1
+        time.sleep(0.5)
+        prices = browser.find_elements_by_class_name("price"); err+=1
+        ws['G61'] = int(prices[2].text.replace(',',"")); Message()
+        ws['G62'] = int(prices[5].text.replace(',',"")); Message()
+        ws['G63'] = int(prices[8].text.replace(',',"")); Message()
 
-print('\n\n최저가 데이터 동기화 완료. \n{}.xlsm 파일에서 확인하세요.\n이 창은 5초 후 자동으로 꺼집니다.'.format(t))
-time.sleep(5)
-browser.quit()
+        Search('가루'); Message(); Message(); Message(); Message(); err+=1
+        prices = browser.find_elements_by_class_name("price"); err+=1
+        ws['G67'] = int(prices[2].text.replace(',',""))
+
+        Search('정식'); err+=1
+        browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__title").click()
+        time.sleep(0.5); Message(); Message(); err+=1
+        browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__option > label:nth-child(4)").click()
+        time.sleep(0.5); Message(); Message(); err+=1
+        browser.find_element_by_css_selector("#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.bt > button.button.button--deal-submit").click()
+        time.sleep(0.5); Message(); Message(); err+=1
+        prices = browser.find_elements_by_class_name("price")
+        names = browser.find_elements_by_class_name('name'); err+=1
+        cnt_name = 0
+        cnt=0
+        j=69
+        for i in prices:
+            cnt+=1
+            if cnt==3 :
+                cnt=0
+                cnt_name+=1
+                try : 
+                    tmp = browser.find_element_by_css_selector('#tbodyItemList > tr:nth-child({}) > td:nth-child(1) > div:nth-child(1) > span:nth-child(3)'.format(cnt_name)).text; err+=1
+                    ws['F{}'.format(j)]=names[cnt_name].text; Message(); Message()
+                    p=int(i.text.replace(',',""))
+                    ws['G{}'.format(j)] = p
+                    j+=1        
+                except : None
+
+        err = 9999
+        t = time.strftime('%m%d_%H%M%S',time.localtime(time.time()))
+        wb.save('{}.xlsm'.format(t)); Message()
+        progress=99; Message()
+
+        print('\n\n최저가 데이터 동기화 완료. \n{}.xlsm 파일에서 확인하세요.\n이 창은 5초 후 자동으로 꺼집니다.'.format(t))
+        time.sleep(5)
+        browser.quit()
+        break
+    except:
+        print("최저가 탐색 중 오류 발생! ERROR{}".format(err))
+        print("동일한 에러가 반복될 경우 제작자에게 문의해주세요.")
+        print("5초 후 처음부터 다시 탐색합니다.")
+        time.sleep(5)
