@@ -1,7 +1,4 @@
 
-Version 3.1.0.0
-
-
 꼭! 읽어주세요
 
 https://github.com/simm4256/Lostark_CraftTool
@@ -19,6 +16,11 @@ exe파일을 믿지 못하시는 분들은 파이썬을 설치해 Run.py 코드�
 
 마이크로소프트 엑셀
 구글 크롬
+크롬 버전에 맞는 chromedriver
+(현재 크롬드라이버는 크롬 95.x 버전용입니다. 만약 Run.exe 파일이 실행하자마자 에러나면서 종료되는 경우
+십중팔구 크롬드라이버와 크롬 버전이 맞지 않는 문제입니다.
+https://chromedriver.chromium.org/downloads 이 사이트에서 본인 크롬 버전에 맞는 chromedriver
+파일을 받아 교체하시면 됩니다.)
 
 
 
