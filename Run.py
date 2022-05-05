@@ -216,28 +216,54 @@ try:
     getElement('CSS_SELECTOR', '#itemList > thead:nth-child(3) > tr:nth-child(1) > th:nth-child(1) > a:nth-child(1)').click(); err+=1
     time.sleep(0.5)
     prices = getElement('CLASS_NAME', "price", True); err+=1
-    ws['G61'] = int(prices[2].text.replace(',',"")); showMessage()
-    ws['G62'] = int(prices[5].text.replace(',',"")); showMessage()
-    ws['G63'] = int(prices[8].text.replace(',',"")); showMessage()
+    ws['G61'] = int(prices[2].text.replace(',',"")); 
+    ws['G62'] = int(prices[5].text.replace(',',"")); 
+    ws['G63'] = int(prices[8].text.replace(',',"")); 
 
     #progress:83
-    search('가루'); showMessage(); showMessage(); showMessage(); showMessage(); err+=1
+    search('가루'); showMessage(); showMessage(); showMessage(); err+=1
     prices = getElement('CLASS_NAME', "price", True); err+=1
     ws['G67'] = int(prices[2].text.replace(',',""))
     
     #progress:86
     search('정식'); err+=1
     getElement('CSS_SELECTOR', "#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__title").click()
-    time.sleep(0.5); showMessage(); showMessage(); err+=1
+    time.sleep(0.5); showMessage(); err+=1
     getElement('CSS_SELECTOR', "#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__option > label:nth-child(4)").click()
-    time.sleep(0.5); showMessage(); showMessage(); err+=1
+    time.sleep(0.5); showMessage(); err+=1
     getElement('CSS_SELECTOR', "#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.bt > button.button.button--deal-submit").click()
-    time.sleep(0.5); showMessage(); showMessage(); err+=1
+    time.sleep(0.5); showMessage(); err+=1
     prices = getElement('CLASS_NAME', "price", True)
     names = getElement('CLASS_NAME', 'name', True); err+=1
     cnt_name = 0
     cnt=0
     j=69
+    for i in prices:
+        cnt+=1
+        if cnt==3 :
+            cnt=0
+            cnt_name+=1
+            try : 
+                err+=1
+                tmp = getElement('CSS_SELECTOR', '#tbodyItemList > tr:nth-child({}) > td:nth-child(1) > div:nth-child(1) > span:nth-child(3)'.format(cnt_name), ignore=True).text; 
+                ws['F{}'.format(j)]=names[cnt_name].text; showMessage(); showMessage()
+                p=int(i.text.replace(',',""))
+                ws['G{}'.format(j)] = p
+                j+=1        
+            except : None
+
+    search('꼬치'); err+=1
+    getElement('CSS_SELECTOR', "#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__title").click()
+    time.sleep(0.5); showMessage(); err+=1
+    getElement('CSS_SELECTOR', "#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.detail > div.grade > div > div.lui-select__option > label:nth-child(3)").click()
+    time.sleep(0.5); showMessage(); err+=1
+    getElement('CSS_SELECTOR', "#lostark-wrapper > div > main > div > div.deal > div.deal-contents > form > fieldset > div > div.bt > button.button.button--deal-submit").click()
+    time.sleep(0.5); showMessage(); err+=1
+    prices = getElement('CLASS_NAME', "price", True)
+    names = getElement('CLASS_NAME', 'name', True); err+=1
+    cnt_name = 0
+    cnt=0
+    j=73
     for i in prices:
         cnt+=1
         if cnt==3 :
