@@ -1,5 +1,6 @@
 from asyncio.windows_events import NULL
 from concurrent.futures import process
+from ensurepip import version
 from pickle import NONE, TRUE
 from tkinter import E
 from selenium import webdriver
@@ -11,6 +12,8 @@ import re
 import pyperclip
 import sys
 import os
+
+program_version = "3.3.0.2"
 
 def search(s):
     excuteScript('selectCategory(0,0, true);')
@@ -111,7 +114,7 @@ bys = {
 }
 
 os.system('cls')
-print('\n','-'*43,'\n Lostark Craft Tool ver3.3.0.0 by 리퍼가신은신발은슬리퍼\n','-'*43,'\n')
+print('\n','-'*43,'\n Lostark Craft Tool ver{} by 리퍼가신은신발은슬리퍼\n'.format(program_version),'-'*43,'\n')
 
 login_type = wb['검색']['I5'].internal_value
 uid = wb['검색']['I6'].internal_value
