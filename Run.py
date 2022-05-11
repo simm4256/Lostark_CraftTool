@@ -13,7 +13,7 @@ import pyperclip
 import sys
 import os
 
-program_version = "3.3.0.2"
+program_version = "3.3.1.0"
 
 def search(s):
     excuteScript('selectCategory(0,0, true);')
@@ -179,7 +179,7 @@ try:
             if cnt==3 :
                 cnt=0
                 j+=1
-                ws['A{}'.format(j)]=names[cnt_name].text
+                ws['A{}'.format(j)]=names[cnt_name+1].text
                 try : 
                     ws['D{}'.format(j)] = re.sub(r'[^0-9]', '', (getElement('CSS_SELECTOR', '#tbodyItemList > tr:nth-child({}) > td:nth-child(1) > div:nth-child(1) > span:nth-child(3)'.format(cnt_name), ignore=True).text))
                 except : None
@@ -208,7 +208,7 @@ try:
             if cnt==3 :
                 cnt=0
                 j+=1
-                ws['F{}'.format(j)]=names[cnt_name].text
+                ws['F{}'.format(j)]=names[cnt_name+1].text
                 cnt_name+=1
                 p=int(i.text.replace(',',""))
                 ws['G{}'.format(j)] = p
@@ -249,7 +249,7 @@ try:
             try : 
                 err+=1
                 tmp = getElement('CSS_SELECTOR', '#tbodyItemList > tr:nth-child({}) > td:nth-child(1) > div:nth-child(1) > span:nth-child(3)'.format(cnt_name), ignore=True).text; 
-                ws['F{}'.format(j)]=names[cnt_name].text; showMessage(); showMessage()
+                ws['F{}'.format(j)]=names[cnt_name+1].text; showMessage(); showMessage()
                 p=int(i.text.replace(',',""))
                 ws['G{}'.format(j)] = p
                 j+=1        
@@ -275,7 +275,7 @@ try:
             try : 
                 err+=1
                 tmp = getElement('CSS_SELECTOR', '#tbodyItemList > tr:nth-child({}) > td:nth-child(1) > div:nth-child(1) > span:nth-child(3)'.format(cnt_name), ignore=True).text; 
-                ws['F{}'.format(j)]=names[cnt_name].text; showMessage(); showMessage()
+                ws['F{}'.format(j)]=names[cnt_name+1].text; showMessage(); showMessage()
                 p=int(i.text.replace(',',""))
                 ws['G{}'.format(j)] = p
                 j+=1        
