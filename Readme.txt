@@ -1,4 +1,6 @@
 
+최신버전 : 3.4.0.0
+
 꼭! 읽어주세요
 
 https://github.com/simm4256/Lostark_CraftTool
